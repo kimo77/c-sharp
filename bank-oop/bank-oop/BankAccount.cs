@@ -8,22 +8,42 @@ namespace bank_oop
 {
     public class BankAccount
     {
-        private string _accountNumber;
-        private List<AccountEvent> _events = new List<AccountEvent>();
+        public string AccountNumber;
+        private readonly List<AccountEvent> _events = new List<AccountEvent>();
         private double _saldo = 0;
 
         public BankAccount(string accountNumumber)
         {
-            _accountNumber = accountNumumber;
+            AccountNumber = accountNumumber;
         }
 
-        public void PrintAllEvents()
+        public string GetAllEvents()
         {
+            string events = "Account all transactions: \n";
             if (_events != null)
                 foreach (var accEvent in _events)
                 {
-                    Console.WriteLine(accEvent.Print());
+                    events = events + accEvent + "\n";
                 }
+            return events;
+
+        }
+
+        public string GetEventsByDate(string lowDate, string highDate)
+        {
+
+            var datEvents = (_events.Where(
+                dEvent =>
+                    dEvent.EventDate.CompareTo(Convert.ToDateTime(lowDate)) > 0 &&
+                    dEvent.EventDate.CompareTo(Convert.ToDateTime(highDate)) < 0)).OrderBy(dEvent => dEvent.EventDate);
+            string events = $"Account transactions from {lowDate} to {highDate}: \n";
+            if (_events != null)
+                foreach (var accEvent in datEvents)
+                {
+                    events = events + accEvent + "\n";
+                }
+            return events;
+
         }
 
         public string PrintSaldo()
@@ -31,9 +51,9 @@ namespace bank_oop
             return _saldo.ToString();
         }
 
-        public void AddEvent(double summa)
+        public void AddEvent(double summa, DateTime dateTime)
         {
-            AccountEvent accEvent = new AccountEvent(DateTime.Now, summa);
+            AccountEvent accEvent = new AccountEvent(dateTime, summa);
             _events.Add(accEvent);
             CalculateSaldo(summa);
         }

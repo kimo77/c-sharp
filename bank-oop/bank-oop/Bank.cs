@@ -9,7 +9,6 @@ namespace bank_oop
     public class Bank
     {
         private string _name;
-        //private List<BankAccount> accounts = new List<BankAccount>();
         public Dictionary<BankAccount, Customer> Accounts = new Dictionary<BankAccount, Customer>();
 
         public Bank(string name)
@@ -18,8 +17,9 @@ namespace bank_oop
         }
 
         
-        public string CreateNewAccount(Customer customer)
+        public string CreateNewAccount(string firstname, string lastname)
         {
+            Customer customer = new Customer(firstname, lastname);
             Random rand = new Random();
             string accountNumber = "FI";
             for (int i = 0; i < 16; i++)
@@ -33,9 +33,58 @@ namespace bank_oop
             return accountNumber;
         }
 
-        public void NewTransaction(string firstname, string lastname, double summa)
+        public BankAccount GetAccountByName(string firstname, string lastname)
         {
-            //bank_oop.Customer customer = accounts.Find(item => )
+            BankAccount account = Accounts.FirstOrDefault(item => item.Value._firstname == firstname && item.Value._lastname == lastname).Key;
+            return account;
+        }
+
+        public BankAccount GetAccountByAccountNumber(string accountNumber)
+        {
+            BankAccount account = Accounts.FirstOrDefault(item => item.Key.AccountNumber == accountNumber).Key;
+            return account;
+        }
+        public void CreateNewTransactionByName(string firstname, string lastname, double summa, string dateTime)
+        {
+            GetAccountByName(firstname, lastname).AddEvent(summa, Convert.ToDateTime(dateTime));
+        }
+
+        public void CreateNewTransactionByName(string firstname, string lastname, double summa)
+        {
+            GetAccountByName(firstname, lastname).AddEvent(summa, DateTime.Now);
+        }
+
+        public void CreateNewTransactionByAccount(string accountNumber, double summa, string dateTime)
+        {
+            GetAccountByAccountNumber(accountNumber).AddEvent(summa, Convert.ToDateTime(dateTime));
+        }
+
+        public void CreateNewTransactionByAccount(string accountNumber, double summa)
+        {
+            GetAccountByAccountNumber(accountNumber).AddEvent(summa, DateTime.Now);
+        }
+
+        public string GetSaldoByName(string firstname, string lastname)
+        {
+            return Accounts[GetAccountByName(firstname, lastname)] + " saldo: " + GetAccountByName(firstname, lastname).PrintSaldo();
+        }
+
+        public string GetAllTransactionsByName(string firstname, string lastname)
+        {
+            return GetAccountByName(firstname, lastname).GetAllEvents();
+        }
+
+        public string GetAllTransactionsByAccountNumber(string accountNumber)
+        {
+            return GetAccountByAccountNumber(accountNumber).GetAllEvents();
+        }
+        public string GetTransactionsByNameDateTime(string firstname, string lastname, string lowDate, string highDate)
+        {
+            return GetAccountByName(firstname, lastname).GetEventsByDate(lowDate, highDate);
+        }
+        public string GetTransactionsByAccountDateTime(string accountNumber, string lowDate, string highDate)
+        {
+            return GetAccountByAccountNumber(accountNumber).GetEventsByDate(lowDate, highDate);
         }
 
     }

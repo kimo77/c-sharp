@@ -10,7 +10,6 @@ namespace bank_oop
     {
         public readonly string _firstname;
         public readonly string _lastname;
-        //private readonly string _accountNumber;
 
         public Customer(string firstname, string lastname)
         {
@@ -22,7 +21,7 @@ namespace bank_oop
 
         public override string ToString()
         {
-            return _firstname + " " + " " + _lastname + " ";
+            return _firstname + " " + _lastname;
         }
     }
 }

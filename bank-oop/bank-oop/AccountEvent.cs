@@ -8,16 +8,19 @@ namespace bank_oop
 {
     public class AccountEvent
     {
-        private DateTime _eventDate;
+        public DateTime EventDate { get; }
         private readonly double _summa;
 
         public AccountEvent(DateTime eventDate, double summa)
         {
-            _eventDate = eventDate;
+            EventDate = eventDate;
             _summa = summa;
        
         }
 
-        public string Print() => _eventDate.ToString() + " - " + _summa.ToString();
+        public override string ToString()
+        {
+            return EventDate + "  " +_summa;
+        }
     }
 }
