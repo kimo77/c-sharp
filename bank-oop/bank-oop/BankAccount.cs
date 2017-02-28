@@ -8,13 +8,13 @@ namespace bank_oop
 {
     public class BankAccount
     {
-        private string _accNum;
+        private string _accountNumber;
         private List<AccountEvent> _events = new List<AccountEvent>();
         private double _saldo = 0;
 
-        public BankAccount(string accNum)
+        public BankAccount(string accountNumumber)
         {
-            _accNum = accNum;
+            _accountNumber = accountNumumber;
         }
 
         public void PrintAllEvents()
@@ -24,13 +24,16 @@ namespace bank_oop
                 {
                     Console.WriteLine(accEvent.Print());
                 }
-        } 
+        }
 
-        public void PrintSaldo() => Console.WriteLine(_saldo.ToString());
-
-        public void AddEvent(DateTime datetime, double summa)
+        public string PrintSaldo()
         {
-            AccountEvent accEvent = new AccountEvent(datetime, summa);
+            return _saldo.ToString();
+        }
+
+        public void AddEvent(double summa)
+        {
+            AccountEvent accEvent = new AccountEvent(DateTime.Now, summa);
             _events.Add(accEvent);
             CalculateSaldo(summa);
         }

@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace bank_oop
 {
-    class Customer
+    public class Customer
     {
-        private string _firstname;
-        private string _lastname;
-        private string _accNum;
+        public readonly string _firstname;
+        public readonly string _lastname;
+        //private readonly string _accountNumber;
 
-        public Customer(string firstname, string lastname, string accNum)
+        public Customer(string firstname, string lastname)
         {
             _firstname = firstname;
             _lastname = lastname;
-            _accNum = accNum;
         }
+
+
 
         public override string ToString()
         {
-            return _firstname + " " + " " + _lastname + " " + _accNum;
+            return _firstname + " " + " " + _lastname + " ";
         }
     }
 }

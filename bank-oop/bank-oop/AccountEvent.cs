@@ -15,6 +15,7 @@ namespace bank_oop
         {
             _eventDate = eventDate;
             _summa = summa;
+       
         }
 
         public string Print() => _eventDate.ToString() + " - " + _summa.ToString();
