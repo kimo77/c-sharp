@@ -19,7 +19,7 @@ namespace bank_oop
         
         public string CreateNewAccount(string firstname, string lastname)
         {
-            Customer customer = new Customer(firstname, lastname);
+            
             Random rand = new Random();
             string accountNumber = "FI";
             for (int i = 0; i < 16; i++)
@@ -27,7 +27,7 @@ namespace bank_oop
                 int nextChar = rand.Next(0, 9);
                 accountNumber = accountNumber + nextChar.ToString();
             }
-
+            Customer customer = new Customer(firstname, lastname, accountNumber);
             BankAccount account = new BankAccount(accountNumber);
             Accounts.Add(account, customer);
             return accountNumber;
